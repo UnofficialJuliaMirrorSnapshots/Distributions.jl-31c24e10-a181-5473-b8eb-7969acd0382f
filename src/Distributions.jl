@@ -4,7 +4,7 @@ using StatsBase, PDMats, StatsFuns, Statistics
 using StatsFuns: logtwo, invsqrt2, invsqrt2π
 
 import QuadGK: quadgk
-import Base: size, eltype, length, convert, show, getindex, rand, vec
+import Base: size, eltype, length, convert, show, getindex, rand, vec, inv
 import Base: sum, maximum, minimum, extrema, +, -, ==
 import Base.Math: @horner
 
@@ -108,6 +108,8 @@ export
     Logistic,
     LogNormal,
     LogitNormal,
+    MatrixBeta,
+    MatrixFDist,
     MatrixNormal,
     MatrixTDist,
     MixtureModel,
@@ -171,6 +173,7 @@ export
     componentwise_pdf,      # component-wise pdf for mixture models
     componentwise_logpdf,   # component-wise logpdf for mixture models
     concentration,      # the concentration parameter
+    convolve,           # convolve distributions of the same type
     dim,                # sample dimension of multivariate distribution
     dof,                # get the degree of freedom
     entropy,            # entropy of distribution in nats
@@ -269,6 +272,7 @@ include("samplers.jl")
 # others
 include("truncate.jl")
 include("conversion.jl")
+include("convolution.jl")
 include("qq.jl")
 include("estimators.jl")
 
@@ -307,10 +311,10 @@ Supported distributions:
     GeneralizedExtremeValue, Geometric, Gumbel, Hypergeometric,
     InverseWishart, InverseGamma, InverseGaussian, IsoNormal,
     IsoNormalCanon, Kolmogorov, KSDist, KSOneSided, Laplace, Levy,
-    Logistic, LogNormal, MatrixNormal, MatrixTDist, MixtureModel, Multinomial,
-    MultivariateNormal, MvLogNormal, MvNormal, MvNormalCanon, MvNormalKnownCov,
-    MvTDist, NegativeBinomial, NoncentralBeta, NoncentralChisq, NoncentralF,
-    NoncentralHypergeometric, NoncentralT, Normal, NormalCanon,
+    Logistic, LogNormal, MatrixBeta, MatrixFDist, MatrixNormal, MatrixTDist, MixtureModel,
+    Multinomial, MultivariateNormal, MvLogNormal, MvNormal, MvNormalCanon,
+    MvNormalKnownCov, MvTDist, NegativeBinomial, NoncentralBeta, NoncentralChisq,
+    NoncentralF, NoncentralHypergeometric, NoncentralT, Normal, NormalCanon,
     NormalInverseGaussian, Pareto, PGeneralizedGaussian, Poisson, PoissonBinomial,
     QQPair, Rayleigh, Skellam, StudentizedRange, SymTriangularDist, TDist, TriangularDist,
     Triweight, Truncated, TruncatedNormal, Uniform, UnivariateGMM,

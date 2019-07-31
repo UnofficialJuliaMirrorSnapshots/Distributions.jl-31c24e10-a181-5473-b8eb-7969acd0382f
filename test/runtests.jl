@@ -4,6 +4,7 @@ using Test
 using Distributed
 using Random
 using StatsBase
+using LinearAlgebra
 
 const tests = [
     "truncate",
@@ -18,6 +19,7 @@ const tests = [
     "categorical",
     "univariates",
     "continuous",
+    "edgecases",
     "fit",
     "multinomial",
     "binomial",
@@ -29,10 +31,13 @@ const tests = [
     "kolmogorov",
     "edgeworth",
     "wisharts",
+    "matrixbeta",
+    "matrixfdist",
     "matrixnormal",
     "matrixtdist",
     "vonmisesfisher",
     "conversion",
+    "convolution",
     "mixture",
     "gradlogpdf",
     "noncentralt",
